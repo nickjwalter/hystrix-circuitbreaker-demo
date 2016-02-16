@@ -33,6 +33,11 @@ public class CommandGenerateBarcode extends HystrixCommand<String> {
 
     @Override
     protected String run() throws Exception {
+        // force an error?
+        if (DynamicPropertyFactory.getInstance().getBooleanProperty("demo.forceError", false).getValue()) {
+            throw new RuntimeException("Ahhh I can't generate that barcode");
+        }
+
         ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
         BufferedOutputStream out = new BufferedOutputStream(byteOut);
 
