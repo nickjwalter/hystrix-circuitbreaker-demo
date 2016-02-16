@@ -1,5 +1,7 @@
 package hystrix.circuitbreaker.demo.services;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,11 +33,15 @@ public class BarcodeServiceTest {
         final String message = "Test Message";
 
         //when
-        final String barcodeImage = barcodeService.barcodeMessage(message);
+        final String actualResponse = barcodeService.barcodeMessage(message);
 
         // expect
-        assertNotNull(barcodeImage);
-        assertEquals(expectedBarcode, barcodeImage);
+        assertNotNull(actualResponse);
+
+        JSONObject responseJSON = (JSONObject) new JSONParser().parse(actualResponse);
+
+        assertEquals(expectedBarcode, responseJSON.get("encodedBarcodeImage"));
+        assertEquals(message, responseJSON.get("inputMessage"));
 
     }
 }
