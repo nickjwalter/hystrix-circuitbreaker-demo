@@ -17,10 +17,9 @@ public class BarcodeServiceTest {
 
     BarcodeService barcodeService;
 
-    final String expectedBarcode = "iVBORw0KGgoAAAANSUhEUgAAAKcAAABJAQAAAABwIwuzAAAACXBIWXMAAA9hAAAPYQGoP6dpAAAAEnRFWHRT" +
-        "b2Z0d2FyZQBCYXJjb2RlNEryjnYuAAAAmUlEQVR42mPQfVJqvnCbmM9Fq3znjNzlm77ci/HTYBgVHRUdFR0VHd6i/7GAf6SLMv7/X19fjy76Hihqh" +
-        "yl6vl/ezl9eXn76fGTR7eX1sWbv3r1Pz0cWra6vj6369//ct+/Iosz99dnM8vJ639iRReu/12fXv3/37tt/NHPLgeaeRzX3fP/8cqAbzFHcAAffsfo4" +
-        "H6vofIgoAOxlWOtNle0DAAAAAElFTkSuQmCC";
+    public static final String expectedBarcode = "iVBORw0KGgoAAAANSUhEUgAAAKcAAABJAQAAAABwIwuzAAAAmUlEQVR42mPQfVJqvnCbmM9Fq3znjNzlm77" +
+        "ci/HTYBgVHRUdFR0VHd6i/7GAf6SLMv7/X19fjy76Hihqhyl6vl/ezl9eXn76fGTR7eX1sWbv3r1Pz0cWra6vj6369//ct+/Iosz99dnM8vJ639" +
+        "iRReu/12fXv3/37tt/NHPLgeaeRzX3fP/8cqAbzFHcAAffsfo4H6vofIgoAOxlWOtNle0DAAAAAElFTkSuQmCC";
 
     @Before
     public void setUp() throws Exception {
