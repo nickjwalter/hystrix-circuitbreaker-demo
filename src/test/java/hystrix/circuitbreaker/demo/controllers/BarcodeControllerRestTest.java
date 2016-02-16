@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpStatus;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.jayway.restassured.response.Response;
@@ -13,8 +16,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Created by nickwalter on 16/02/2016.
+ * Integration Test for Barcode Controller.
+ * @author Nick Walter
  */
+@Ignore
 public class BarcodeControllerRestTest {
 
     final String expectedBarcode = "iVBORw0KGgoAAAANSUhEUgAAAKcAAABJAQAAAABwIwuzAAAACXBIWXMAAA9hAAAPYQGoP6dpAAAAEnRFWHRT" +
@@ -34,7 +39,9 @@ public class BarcodeControllerRestTest {
         assertEquals(HttpStatus.SC_OK, response.getStatusCode());
 
         assertNotNull(response.getBody());
-        assertEquals(expectedBarcode, response.getBody().print());
+
+        JSONObject responseJSON = (JSONObject) new JSONParser().parse(response.getBody().print());
+        assertEquals(expectedBarcode, responseJSON.get("encodedBarcodeImage"));
     }
 
     @Test

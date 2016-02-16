@@ -1,5 +1,7 @@
 package hystrix.circuitbreaker.demo.services;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,10 +17,9 @@ public class BarcodeServiceTest {
 
     BarcodeService barcodeService;
 
-    final String expectedBarcode = "iVBORw0KGgoAAAANSUhEUgAAAKcAAABJAQAAAABwIwuzAAAACXBIWXMAAA9hAAAPYQGoP6dpAAAAEnRFWHRT" +
-        "b2Z0d2FyZQBCYXJjb2RlNEryjnYuAAAAmUlEQVR42mPQfVJqvnCbmM9Fq3znjNzlm77ci/HTYBgVHRUdFR0VHd6i/7GAf6SLMv7/X19fjy76Hihqh" +
-        "yl6vl/ezl9eXn76fGTR7eX1sWbv3r1Pz0cWra6vj6369//ct+/Iosz99dnM8vJ639iRReu/12fXv3/37tt/NHPLgeaeRzX3fP/8cqAbzFHcAAffsfo4" +
-        "H6vofIgoAOxlWOtNle0DAAAAAElFTkSuQmCC";
+    final String expectedBarcode = "iVBORw0KGgoAAAANSUhEUgAAAKcAAABJAQAAAABwIwuzAAAAmUlEQVR42mPQfVJqvnCbmM9Fq3znjNzlm77" +
+        "ci/HTYBgVHRUdFR0VHd6i/7GAf6SLMv7/X19fjy76Hihqhyl6vl/ezl9eXn76fGTR7eX1sWbv3r1Pz0cWra6vj6369//ct+/Iosz99dnM8vJ63" +
+        "9iRReu/12fXv3/37tt/NHPLgeaeRzX3fP/8cqAbzFHcAAffsfo4H6vofIgoAOxlWOtNle0DAAAAAElFTkSuQmCC";
 
     @Before
     public void setUp() throws Exception {
@@ -31,11 +32,14 @@ public class BarcodeServiceTest {
         final String message = "Test Message";
 
         //when
-        final String barcodeImage = barcodeService.barcodeMessage(message);
+        final String response = barcodeService.barcodeMessage(message);
 
         // expect
-        assertNotNull(barcodeImage);
-        assertEquals(expectedBarcode, barcodeImage);
+        assertNotNull(response);
 
+        JSONObject responseJSON = (JSONObject) new JSONParser().parse(response);
+
+        assertEquals(expectedBarcode, responseJSON.get("encodedBarcodeImage"));
+        assertEquals(message, responseJSON.get("inputMessage"));
     }
 }
