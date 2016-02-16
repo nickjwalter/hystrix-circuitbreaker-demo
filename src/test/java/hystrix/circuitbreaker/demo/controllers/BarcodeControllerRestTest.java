@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpStatus;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.jayway.restassured.response.Response;
@@ -15,6 +16,7 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Created by nickwalter on 16/02/2016.
  */
+@Ignore
 public class BarcodeControllerRestTest {
 
     final String expectedBarcode = "iVBORw0KGgoAAAANSUhEUgAAAKcAAABJAQAAAABwIwuzAAAACXBIWXMAAA9hAAAPYQGoP6dpAAAAEnRFWHRT" +

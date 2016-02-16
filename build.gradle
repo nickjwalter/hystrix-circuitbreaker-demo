@@ -40,6 +40,10 @@ dependencies {
     }
     compile("org.springframework.boot:spring-boot-starter-jetty")
     compile('net.sf.barcode4j:barcode4j:2.0')
+    compile('com.googlecode.json-simple:json-simple:1.1.1')
+
+    compile('com.netflix.hystrix:hystrix-core:1.4.23')
+    compile('com.netflix.hystrix:hystrix-metrics-event-stream:1.4.23')
 
     //test dependencies
     testCompile('junit:junit')
