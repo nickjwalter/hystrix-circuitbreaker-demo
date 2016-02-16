@@ -39,11 +39,10 @@ dependencies {
         exclude module: "spring-boot-starter-tomcat"
     }
     compile("org.springframework.boot:spring-boot-starter-jetty")
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-
     compile('net.sf.barcode4j:barcode4j:2.0')
 
     //test dependencies
     testCompile('junit:junit')
     testCompile('org.springframework:spring-test:4.0.8.RELEASE')
+    testCompile('com.jayway.restassured:rest-assured:2.8.0')
 }

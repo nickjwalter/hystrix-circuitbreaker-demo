@@ -1,8 +1,6 @@
 package hystrix.circuitbreaker.demo.controllers;
 
 
-import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,15 +21,10 @@ public class BarcodeController {
 
     @RequestMapping("/barcode")
     public String barcode(@RequestParam(value="message", defaultValue="Nicks Barcode") String message) {
-        try {
-            barcodeService.barcodeMessage(message);
 
-            return "Successfully Generated Barcode";
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        final String barcodeImage = barcodeService.barcodeMessage(message);
 
-        return null;
+        return barcodeImage;
     }
 
 }

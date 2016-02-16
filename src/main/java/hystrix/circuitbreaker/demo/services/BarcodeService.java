@@ -1,10 +1,10 @@
 package hystrix.circuitbreaker.demo.services;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.util.Base64;
 
 import org.krysalis.barcode4j.impl.code128.Code128Bean;
 import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
@@ -24,7 +24,7 @@ public class BarcodeService {
      * @param msg the message to encode
      * @throws IOException
      */
-    public void barcodeMessage(final String msg) throws IOException {
+    public String barcodeMessage(final String msg) {
         final Code128Bean bean = new Code128Bean();
         final int dpi = 100;
 
@@ -32,11 +32,10 @@ public class BarcodeService {
         bean.setModuleWidth(UnitConv.in2mm(1.0f / dpi)); //makes the narrow bar
         bean.doQuietZone(false);
 
-        //Open output file
-        File outputFile = new File("barcode.png");
-        OutputStream out = new FileOutputStream(outputFile);
+        ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
+        try (BufferedOutputStream out = new BufferedOutputStream(byteOut);) {
 
-        try {
+
             //Set up the canvas provider for monochrome PNG output
             BitmapCanvasProvider canvas = new BitmapCanvasProvider(
                 out, "image/x-png", dpi, BufferedImage.TYPE_BYTE_BINARY, false, 0);
@@ -46,9 +45,13 @@ public class BarcodeService {
 
             //Signal end of generation
             canvas.finish();
-
-        } finally {
             out.close();
+
+            return Base64.getEncoder().encodeToString(byteOut.toByteArray());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
