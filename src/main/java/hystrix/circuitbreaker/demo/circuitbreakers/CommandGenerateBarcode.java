@@ -41,6 +41,11 @@ public class CommandGenerateBarcode extends HystrixCommand<String> {
             throw new RuntimeException("Ahhh I can't generate that barcode");
         }
 
+        // introduce a delay
+        Thread.sleep(
+            DynamicPropertyFactory.getInstance().getIntProperty("demo.delay", 0).getValue()
+        );
+
         OutputStream out = new FileOutputStream(new File("barcode.png"));
 
         //Set up the canvas provider for monochrome PNG output
@@ -49,11 +54,6 @@ public class CommandGenerateBarcode extends HystrixCommand<String> {
 
         //Generate the barcode
         barcodeBean.generateBarcode(canvas, message);
-
-        // introduce a delay
-        Thread.sleep(
-            DynamicPropertyFactory.getInstance().getIntProperty("demo.delay", 0).getValue()
-        );
 
         //Signal end of generation and write to the file
         canvas.finish();
