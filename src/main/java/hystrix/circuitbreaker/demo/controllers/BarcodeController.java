@@ -1,6 +1,6 @@
 package hystrix.circuitbreaker.demo.controllers;
 
-
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +24,11 @@ public class BarcodeController {
 
         final String barcodeImage = barcodeService.barcodeMessage(message);
 
-        return barcodeImage;
+        final JSONObject jsonObject = new JSONObject();
+        jsonObject.put("inputMessage", message);
+        jsonObject.put("encodedBarcodeImage", barcodeImage);
+
+        return jsonObject.toJSONString();
     }
 
 }

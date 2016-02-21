@@ -9,7 +9,6 @@ import java.io.OutputStream;
 import java.util.Base64;
 import javax.imageio.ImageIO;
 
-import org.json.simple.JSONObject;
 import org.krysalis.barcode4j.impl.code128.Code128Bean;
 import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
 import org.krysalis.barcode4j.tools.UnitConv;
@@ -57,11 +56,7 @@ public class BarcodeService {
             byte[] imageInByte = baos.toByteArray();
             baos.close();
 
-            final JSONObject jsonObject = new JSONObject();
-            jsonObject.put("inputMessage", msg);
-            jsonObject.put("encodedBarcodeImage", Base64.getEncoder().encodeToString(imageInByte));
-
-            return jsonObject.toJSONString();
+            return Base64.getEncoder().encodeToString(imageInByte);
 
         } catch (IOException e) {
             e.printStackTrace();
