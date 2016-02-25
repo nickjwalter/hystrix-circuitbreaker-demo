@@ -48,14 +48,11 @@ public class BarcodeControllerRestTest {
 
         // given
         final List<String> messages = new ArrayList<>();
-        for (int i=0; i < 10; i++) {
-            messages.add("Test Message " + i);
+        for (int i=0; i < 10000; i++) {
+            // when
+            get(baseUrl + "Hello Hystrix " + i);
         }
 
-        //when
-        messages.parallelStream().forEach(
-            message -> get(baseUrl + message)
-        );
     }
 
 }
